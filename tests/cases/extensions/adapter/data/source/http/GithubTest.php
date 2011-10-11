@@ -26,6 +26,8 @@ class GithubTest extends \lithium\test\Unit {
 		));
 		Issues::config(array('connection' => 'test-gh'));
 		Repos::config(array('connection' => 'test-gh'));
+		Users::config(array('connection' => 'test-gh'));
+		Orgs::config(array('connection' => 'test-gh'));
 	}
 
 	public function testBasicGet() {
@@ -100,6 +102,7 @@ class GithubTest extends \lithium\test\Unit {
 				'user' => 'octocat'
 			)
 		));
+		
 		$result = $repos->first();
 		$this->assertEqual($result->name, 'Hello-World');
 	}
@@ -122,8 +125,8 @@ class GithubTest extends \lithium\test\Unit {
 		));
 		
 		$result = $orgs->first();
-		$this->assertEqual($orgs->login, 'github');
-		$this->assertEqual($orgs->id, 1);
-		$this->assertEqual($orgs->url, 'https://api.github.com/orgs/1');
+		$this->assertEqual($result->login, 'github');
+		$this->assertEqual($result->id, 1);
+		$this->assertEqual($result->url, 'https://api.github.com/orgs/1');
 	}
 }
