@@ -6,6 +6,8 @@ use lithium\data\Connections;
 use lithium\data\model\Query;
 use li3_github\models\Issues;
 use li3_github\models\Repos;
+use li3_github\models\Orgs;
+use li3_github\models\Users;
 
 class GithubTest extends \lithium\test\Unit {
 
@@ -90,5 +92,38 @@ class GithubTest extends \lithium\test\Unit {
 		));
 		$result = $issues->first();
 		$this->assertTrue($result->number > 2);
+	}
+	
+	public function testUsersRepos() {
+		$repos = Users::repos(array(
+			'conditions' => array(
+				'user' => 'octocat'
+			)
+		));
+		$result = $repos->first();
+		$this->assertEqual($result->name, 'Hello-World');
+	}
+	
+	public function testOrgsRepos() {
+		$repos = Orgs::repos(array(
+			'conditions' => array(
+				'org' => 'octocat'
+			)
+		));
+		$result = $repos->first();
+		$this->assertEqual($result->name, 'Hello-World');
+	}
+	
+	public function testUserOrgs() {
+		$orgs = Users::orgs(array(
+			'conditions' => array(
+				'user' => 'octocat'
+			)
+		));
+		
+		$result = $orgs->first();
+		$this->assertEqual($orgs->login, 'github');
+		$this->assertEqual($orgs->id, 1);
+		$this->assertEqual($orgs->url, 'https://api.github.com/orgs/1');
 	}
 }

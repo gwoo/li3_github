@@ -13,6 +13,7 @@ use \lithium\util\String;
 class GitHub extends \lithium\data\source\Http {
 
 	protected $_strings = array(
+		'users' => '/users/{:user}/{:type}',
 		'issues' => '/issues',
 		'repos' => '/repos/{:user}/{:repo}/{:type}/{:id}',
 		'orgs' => '/orgs/{:org}/{:type}'
