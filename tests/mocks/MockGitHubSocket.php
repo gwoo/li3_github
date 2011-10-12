@@ -62,6 +62,9 @@ class MockGitHubSocket extends \lithium\net\Socket {
 		if (strpos($url, '/issues')) {
 			$json = '/responses/issues.json';
 		}
+		if (strpos($url, '/repos/octocat/github/issues')) {
+		    $json = '/responses/repos/issues.json';
+		}
 		return file_get_contents(__DIR__ . $json);
 	}
 }
