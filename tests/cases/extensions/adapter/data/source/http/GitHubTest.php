@@ -60,42 +60,6 @@ class GitHubTest extends \lithium\test\Unit {
 		$this->assertEqual($expected, $result->user->login);
 	}
 
-	public function testRepoIssuesCreate() {
-		$data = array(
-			'title' => 'New Bug',
-			'body' => 'this is a new bug',
-		);
-		$result = Repos::create($data, array(
-			'type' => 'issues',
-			'user' => 'apiheadbanger',
-			'repo' => 'demo',
-		));
-		$this->assertTrue($result->save());
-	}
-
-	public function testRepoIssuesWithSortCreatedAsc() {
-		$issues = Repos::issues(array(
-			'conditions' => array(
-				'user' => 'octocat', 'repo' => 'Hello-World',
-				'sort' => 'created', 'direction' => 'asc'
-			)
-		));
-		$expected = '1347';
-		$result = $issues->first();
-		$this->assertEqual($expected, $result->number);
-	}
-
-	public function testRepoIssuesWithSortCreatedDesc() {
-		$issues = Repos::issues(array(
-			'conditions' => array(
-				'user' => 'octocat', 'repo' => 'Hello-World',
-				'sort' => 'created', 'direction' => 'desc'
-			)
-		));
-		$result = $issues->first();
-		$this->assertTrue($result->number > 2);
-	}
-
 	public function testUsersRepos() {
 		$repos = Users::repos(array(
 			'conditions' => array(
@@ -110,11 +74,11 @@ class GitHubTest extends \lithium\test\Unit {
 	public function testOrgsRepos() {
 		$repos = Orgs::repos(array(
 			'conditions' => array(
-				'org' => 'octocat'
+			    'org' => 'github'
 			)
 		));
 		$result = $repos->first();
-		$this->assertEqual($result->name, 'Hello-World');
+		$this->assertEqual($result->name, 'Github');
 	}
 
 	public function testUserOrgs() {
