@@ -12,3 +12,9 @@ Repos::finder('issues', function($self, $params, $chain) {
 	$data = $chain->next($self, $params, $chain);
 	return $data;
 });
+
+Repos::finder('milestones', function($self, $params, $chain) {
+    $params['options']['conditions']['type'] = 'milestones';
+    $data = $chain->next($self, $params, $chain);
+    return $data;
+});
