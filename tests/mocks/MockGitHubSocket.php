@@ -1,6 +1,7 @@
 <?php
 
 namespace li3_github\tests\mocks;
+use li3_github\tests\mocks\MockGitHubSocket\Exception;
 
 class MockGitHubSocket extends \lithium\net\Socket {
 
@@ -53,8 +54,11 @@ class MockGitHubSocket extends \lithium\net\Socket {
 		if (strpos($url, '/users/octocat')) {
 			$json = '/responses/users/octocat.json';
 		}
-		if (strpos($url, '/users/octocat/repos') || strpos($url, '/orgs/octocat/repos')) {
+		if (strpos($url, '/users/octocat/repos')) {
 			$json = '/responses/users/repos.json';
+		}
+		if (strpos($url, '/orgs/github/repos')) {
+		    $json = '/responses/orgs/repos.json';
 		}
 		if (strpos($url, '/users/octocat/orgs')) {
 			$json = '/responses/users/orgs.json';
@@ -65,6 +69,11 @@ class MockGitHubSocket extends \lithium\net\Socket {
 		if (strpos($url, '/repos/octocat/github/issues')) {
 		    $json = '/responses/repos/issues.json';
 		}
+		
+		if (!isset($json)) {
+		    throw new Exception("Unhandled URL: " .$url);
+		}
+		
 		return file_get_contents(__DIR__ . $json);
 	}
 }
