@@ -128,7 +128,9 @@ class GitHub extends \lithium\data\source\Http {
 	 * @param array $conditions
 	 * @return string
 	 */
-	protected function _path($source, array $conditions = array()) {
+	protected function _path($source, array $conditions = null) {
+		$conditions = (array) $conditions;
+		
 		if (!isset($this->_strings[$source])) {
 			return null;
 		}
